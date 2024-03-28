@@ -1,0 +1,11 @@
+.nav-logo{
+    width: 120px;
+    height: auto;
+}
+
+.footer-base{
+    margin-top: calc(100vh - 160px) !important;
+}
+.loader{
+    margin-top: 30vh;
+}

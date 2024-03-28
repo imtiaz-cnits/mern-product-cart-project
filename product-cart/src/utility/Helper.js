@@ -1,6 +1,6 @@
 class Helper {
     static isLogin() {
-        return false;
+        return true;
     }
 
     static API_BASE = "https://cart-api.teamrabbil.com/api";
