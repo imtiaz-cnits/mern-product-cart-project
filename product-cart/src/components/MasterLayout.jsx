@@ -8,7 +8,7 @@ const MasterLayout = (props) => {
         <div className="bg-light">
             <AppNavBar/>
             {props.children}
-            <Toaster position="bottom-center"/>
+            <Toaster position="top-right"/>
             <Footer/>
         </div>
     );
