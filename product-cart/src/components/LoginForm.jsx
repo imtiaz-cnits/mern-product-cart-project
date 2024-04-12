@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 
 const LoginForm = () => {
 
+    let [submit, setSubmit] = React.useState(false);
+
     const onSubmit = (e) => {
         e.preventDefault();
         let formData = new FormData(e.target);
@@ -12,7 +14,9 @@ const LoginForm = () => {
             toast.error("Email address is empty!");
         }
         else {
+            setSubmit(true);
             // API Call
+            // setSubmit(true);
         }
     }
 
@@ -24,7 +28,7 @@ const LoginForm = () => {
                         <form onSubmit={onSubmit} className="p-4">
                             <label className="form-label">Enter Your Email Here</label>
                             <input name='email' type='email' className="form-control mt-2"/>
-                            <button type="submit" className="w-100 btn btn-success mt-3">Submit</button>
+                            <button disabled={submit} type="submit" className="w-100 btn btn-success mt-3">Submit</button>
                         </form>
                     </div>
                 </div>
