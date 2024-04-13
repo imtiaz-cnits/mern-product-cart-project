@@ -1,10 +1,11 @@
 import React from 'react';
 import MasterLayout from "../components/MasterLayout.jsx";
+import VerifyForm from "../components/VerifyForm.jsx";
 
 const VerifyPage = () => {
     return (
         <MasterLayout>
-            <h1>VerifyPage</h1>
+            <VerifyForm/>
         </MasterLayout>
     );
 };

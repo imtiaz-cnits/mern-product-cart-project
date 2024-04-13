@@ -5,6 +5,10 @@ import {Link, NavLink} from "react-router-dom";
 import logo from "../assets/images/logo.svg"
 
 const AppNavBar = () => {
+    const logout = ()=> {
+        sessionStorage.clear();
+        window.location.href = "/";
+    }
     return (
         <Navbar expand="lg" className="bg-body-tertiary bg-white shadow">
             <Container>
@@ -13,23 +17,19 @@ const AppNavBar = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
-                    <Nav
-                        className="me-auto my-2 my-lg-0"
+                    <Nav className="me-auto my-2 my-lg-0"
                         style={{ maxHeight: '100px' }}
-                        navbarScroll
-                    >
+                        navbarScroll>
                         <NavLink className="nav-link" to="/">Home</NavLink>
                         {
                             Helper.isLogin() &&
                             <NavLink className="nav-link" to="/cart-list">Cart List</NavLink>
                         }
-
                     </Nav>
                     {
                         Helper.isLogin() ? (
-                            <button className='btn btn-danger'>Logout</button>
-                        ) :
-                            ( <Link className='btn btn-danger' to="/login">Login</Link> )
+                            <button onClick={logout} className='btn btn-danger'>Logout</button>) :
+                            ( <Link className='btn btn-danger' to="/user-login">Login</Link> )
                     }
 
                 </Navbar.Collapse>

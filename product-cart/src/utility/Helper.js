@@ -1,6 +1,7 @@
 class Helper {
     static isLogin() {
-        return false;
+        let token = sessionStorage.getItem("token");
+        return token === null;
     }
 
     static isEmpty(value) {
@@ -8,9 +9,6 @@ class Helper {
     }
 
     static API_BASE = "https://cart-api.teamrabbil.com/api";
-
-
-
 }
 
 export default Helper
