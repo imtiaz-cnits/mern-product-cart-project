@@ -1,7 +1,7 @@
 class Helper {
     static isLogin() {
         let token = sessionStorage.getItem("token");
-        return token === null;
+        return token !== null;
     }
 
     static isEmpty(value) {

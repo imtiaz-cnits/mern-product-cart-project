@@ -16,7 +16,6 @@ const VerifyForm = () => {
         else {
             let email = sessionStorage.getItem("email");
             setSubmit(true);
-            // API Call
             let res = await axios.post(`${Helper.API_BASE}/verify-login`, {UserEmail:email, OTP:otp});
             setSubmit(false);
             if (res.data ['msg'] === "success") {
