@@ -1,4 +1,5 @@
 class Helper {
+
     static isLogin() {
         let token = sessionStorage.getItem("token");
         return token !== null;
@@ -13,6 +14,13 @@ class Helper {
             headers: {
                 'token': sessionStorage.getItem("token")
             }
+        }
+    }
+
+    static unauthorized(code) {
+        if (code === 401) {
+            sessionStorage.clear();
+            window.location.href = "/login";
         }
     }
 
