@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 const ProductList = () => {
 
     let [data, setData] = useState(null)
+    let [loader, setLoader] = useState(false);
 
     useEffect( ()=> {
         (async ()=> {
@@ -23,10 +24,11 @@ const ProductList = () => {
 
     const AddToCart = async (id) => {
         try {
-            debugger;
+            setLoader(true)
             let res = await axios.get(`${Helper.API_BASE}/create-cart/${id}`, Helper.tokenHeader());
+            setLoader(false)
             if (res.data['msg'] === "success") {
-                toast.success("Request Completed");
+                toast.success("Product Added to Cart");
             }
             else {
                 toast.error("Request failed!");
@@ -40,7 +42,7 @@ const ProductList = () => {
 
     return (
         <div>
-            {data==null ? (<FullScreenLoader/>):(
+            {data==null || loader ? (<FullScreenLoader/>):(
                 <div className="container mt-3">
                     <div className="row">
                         {
