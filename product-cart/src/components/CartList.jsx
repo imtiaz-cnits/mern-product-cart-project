@@ -7,27 +7,32 @@ import FullScreenLoader from "./FullScreenLoader.jsx";
 const CartList = () => {
 
     let [data, setData] = useState(null)
-    let [loader, setLoader] = useState(false);
+    let [loader, SetLoader] = useState(false);
 
     useEffect( ()=> {
         (async ()=> {
-            await callProductList()
+            await callCartList()
         })()
     }, []);
 
-    const callProductList = async ()=> {
-        let res = await axios.get(`${Helper.API_BASE}/cart-list`)
-        let productList = res.data['data']
-        setData(productList);
+    const callCartList = async ()=> {
+        try {
+            let res = await axios.get(`${Helper.API_BASE}/cart-list`, Helper.tokenHeader())
+            let productList = res.data['data']
+            setData(productList);
+        } catch (e) {
+            Helper.unauthorized(e.response.status);
+        }
     }
 
     const RemoveCart = async (id) => {
         try {
-            setLoader(true)
+            SetLoader(true)
             let res = await axios.get(`${Helper.API_BASE}/remove-cart/${id}`, Helper.tokenHeader());
-            setLoader(false)
+            SetLoader(false)
             if (res.data['msg'] === "success") {
                 toast.success("Product Removed Successfully");
+                await callCartList()
             }
             else {
                 toast.error("Request failed!");
@@ -50,17 +55,17 @@ const CartList = () => {
                                         <div className="card p-3">
                                             <img className="w-100" src={item ['product']['image']} alt=""/>
                                             <h5> PRICE: $
-                                                {item['discount'] === 0 ? (<span>{item['price']}</span>) : (
-                                                    <span><strike>{<span>{item['price']}</span>}</strike> {
-                                                        <span>{item['discount_price']}</span>
+                                                {item ['product']['discount'] === 0 ? (<span>{item ['product']['price']}</span>) : (
+                                                    <span><strike>{<span>{item ['product']['price']}</span>}</strike> {
+                                                        <span>{item ['product']['discount_price']}</span>
                                                     }
                                                  </span>
                                                 )}
                                             </h5>
-                                            <p>{item["title"]}</p>
+                                            <p>{item ['product']["title"]}</p>
                                             <button onClick={async () => {
-                                                await AddToCart(item['id'])
-                                            }} className="btn btn-outline-danger">Add to Cart
+                                                await RemoveCart(item ['product']['id'])
+                                            }} className="btn btn-outline-danger">Remove
                                             </button>
                                         </div>
                                     </div>
